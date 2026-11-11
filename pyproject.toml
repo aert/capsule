@@ -1,0 +1,42 @@
+[project]
+name = "capsule-vm"
+version = "0.1.0"
+description = "One Incus VM per project: a friendly CLI configured by a single YAML file"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.9"
+dependencies = ["pyyaml>=6"]
+keywords = ["incus", "vm", "virtual-machine", "cli", "tailscale", "devcontainer", "cloud-init"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: System :: Systems Administration",
+]
+
+[project.scripts]
+capsule = "capsule:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "capsule"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "PT"]
+ignore = ["E501"]  # long help and message strings are fine; `ruff format` handles code
